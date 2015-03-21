@@ -1,10 +1,49 @@
 <?php
 require("config.php");
-include_once $external_dir . dbconfig.php;
-include_once db_connect.php;
+require($external_dir . "dbconfig.php");
+require("db_connect.php");
 
-
+function checkConnection($conn){
+    if ($conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)){
+            return true;
+    }
+    else {
+            return false;
+    }
+}
 function createUser($username, $password, $email){
+    //Check if username is available for use:
+    global $myconnection; 
+    if(!checkConnection($myconnection)){
+        die("Connection to database failed.");
+    }
+    else {
+        $stmt = $myconnection->prepare("SELECT count(*) FROM users where username = :username");
+        $stmt ->bindParam(':username', $username);
+        try{
+            $stmt -> execute();
+            
+        }
+        
+        catch (Exception $e){
+            return false;
+            
+        }
+        return true;
+        
+        
+        
+        
+      
+        
+    }
+    
+    
+        
+       
+        
+  
+    
     /*
      * Check if username is available
      * generate salt

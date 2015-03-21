@@ -9,6 +9,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
         <?php
+        
         if (isset($_POST['submit'])){
                 
                 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
@@ -41,16 +42,17 @@ and open the template in the editor.
                 else {
                         $confirmPasswordError = "";
                     }
-                
-             }
-             if ($nameError == "" && $emailError == "" && $passwordError == "" && $confirmPasswordError == "" ){
+              if ($nameError == "" && $emailError == "" && $passwordError == "" && $confirmPasswordError == "" ){
                  
                  if (createUser($username, $password, $email)){
                      $createUserResult = "User has been created.";
                  }
-                 else $createUserResult = "User creation failed.";
+                 else {
+                     $createUserResult = "User creation failed.";
              }
-
+           }  
+        }
+             
             ?>
 <html>
     <head>
